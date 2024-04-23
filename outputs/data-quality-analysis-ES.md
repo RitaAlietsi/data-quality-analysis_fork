@@ -1,39 +1,38 @@
----
-title: "Data Quality Analysis"
-output: html_notebook
-author: "Emma Arenas Villaverde"
----
+# Análisis de Calidad de Datos
+
+##### ***Emma Arenas Villaverde***
+***
 
 <br>
 
-## 1. Data Treatment<a id="treatment"></a>
+## 1. Tratamiento de los Datos<a id="treatment"></a>
 
-### 1.1. Importing Libraries<a id="libraries"></a>
+### 1.1. Importar Librerías<a id="libraries"></a>
 
 
 ```R
-install.packages("readr") # to read CSV files
-install.packages("dplyr") # for data manipulation
+install.packages("readr") # para leer archivos CSV
+install.packages("dplyr") # para manipulación de datos
 library(readr) 
 library(dplyr) 
 ```
 
-### 1.2. Loading Dataset <a id="data-info"></a>
+### 1.2. Cargar Dataset <a id="data-info"></a>
 
 
 ```R
-BBDD_Locales <- read_csv2("../data/BBDD_Locales.csv") #  the read_csv2 function is configured by default to use the semicolon as the delimiter
+BBDD_Locales <- read_csv2("../data/BBDD_Locales.csv") #  la función read_csv2 viene configurada por defecto para utilizar el punto y coma como delimitador
 ```
 
 <br>
 
-## 2. Analysis <a id="analysis"></a>
+## 2. Análisis <a id="analysis"></a>
 
-### 2.1. Data Overview <a id="data-info"></a>
+### 2.1. Información de los Datos <a id="data-info"></a>
 
 
 ```R
-dim(BBDD_Locales) # to obtain its dimensions
+dim(BBDD_Locales) # para obtener sus dimensiones
 ```
 
 
@@ -48,7 +47,7 @@ dim(BBDD_Locales) # to obtain its dimensions
 
 
 ```R
-str(BBDD_Locales) # to see its internal structure
+str(BBDD_Locales) # para ver su estructura interna
 ```
 
     spc_tbl_ [766 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
@@ -74,7 +73,7 @@ str(BBDD_Locales) # to see its internal structure
 
 
 ```R
-head(BBDD_Locales, n = 766) # to view its rows
+head(BBDD_Locales, n = 766) # para ver sus filas
 ```
 
 
@@ -151,13 +150,13 @@ head(BBDD_Locales, n = 766) # to view its rows
 
 
 
-- **Number of records**: the database contains a total of **766 records**, where each of them represents a data entry corresponding to `Municipio29`.  
-- **Number of columns**: the structure of the database has**7 columns**, where each one of them has specific attributes related to the town under study.  
-- **Variable typology**: as for the type of variables, there are stored both numeric `num` (indicating decimal numbers), and character type `chr` (text strings).
+- **Número de registros**: la base de datos contiene un total de **766 registros**, donde cada uno ellos representa una entrada de datos correspondiente a `Municipio29`.  
+- **Número de columnas**: la estructura de la base de datos cuenta con **7 columnas**, donde cada una de ellas posee atributos específicos relativos al municipio de estudio.  
+- **Tipología de las variables**: en cuanto a la tipología de las variables, hay almacenados tanto datos de tipo numeric `num` (indicando números decimales), como de tipo character `chr` (reflejando cadenas de texto).
 
-### 2.2. Detection of Duplicate Record <a id="duplicates"></a>
+### 2.2. Detección de Registros Duplicados <a id="duplicates"></a>
 
-In this part of the study, duplicate records have been identified and stored in `duplicados` for display:
+En esta parte del estudio, se han identificado los registros duplicados y se han almacenado en `duplicados` para su visualización:
 
 
 ```R
@@ -185,7 +184,7 @@ head(duplicados)
 
 
 
-As can be seen, **2 duplicate records** have been detected. From this point on, they have been eliminated, leaving the current dataset without duplicates.
+Tal y como se puede observar, se han detectado **2 registros duplicados**. A partir de aquí, se ha procedido a su eliminación, dejando al actual dataset sin duplicados.
 
 
 ```R
@@ -193,7 +192,7 @@ BBDD_Locales <- BBDD_Locales %>%
     distinct()
 ```
 
-Then, a check is made to see if they have been deleted correctly:
+A continuación, se comprueba si se han eliminado correctamente:
 
 
 ```R
@@ -204,9 +203,9 @@ sum(duplicated(BBDD_Locales))
 0
 
 
-### 2.3. Detection of Missing Values <a id="na-values"></a>
+### 2.3. Detección de Valores “NA” <a id="na-values"></a>
 
-> In Variable `superficie` : estimate it with the statistic **mean**.
+> En Variable `superficie` : estimarlo con el estadístico **media**
 
 
 ```R
@@ -218,7 +217,7 @@ na_superficie
 TRUE
 
 
-Once the "NA" values are detected, the estimation is performed, making sure to exclude the missing values in the calculation by means of the argument `na.rm = TRUE` :
+Una vez detectados los valores "NA", se realiza la estimación, asegurando excluir los valores faltantes en el cálculo mediante el argumento `na.rm = TRUE` :
 
 
 ```R
@@ -226,7 +225,7 @@ BBDD_Locales <- BBDD_Locales %>%
   mutate(superficie = ifelse(is.na(superficie), mean(superficie, na.rm = TRUE), superficie)) # para transformar las variables
 ```
 
-> In Variable `trabajadores` : estimate it with the statistic **maximum**.
+> En Variable `trabajadores` : estimarlo con el estadístico **máximo**
 
 
 ```R
@@ -238,7 +237,7 @@ na_trabajadores
 TRUE
 
 
-As for the `trabajadores` column, its "NA" values have been replaced by the maximum value, again excluding the missing values in the calculation:
+En cuanto a la columna `trabajadores` , sus valores "NA" han sido sustituidos por el valor máximo, nuevamente excluyendo los valores faltantes en el cálculo:
 
 
 ```R
@@ -246,7 +245,7 @@ BBDD_Locales <- BBDD_Locales %>%
   mutate(trabajadores = ifelse(is.na(trabajadores), max(trabajadores, na.rm = TRUE), trabajadores)) # para transformar las variables
 ```
 
-Finally, it is verified that there are no empty values:
+Finalmente, se comprueba que ya no existen valores vacíos:
 
 
 ```R
@@ -262,11 +261,11 @@ sum(is.na(BBDD_Locales$trabajadores)) # para contar la cantidad de NA
 0
 
 
-### 2.4. Detection of Atypical Values <a id="atypical-values"></a>
+### 2.4. Detección de Valores Atípicos <a id="atypical-values"></a>
 
 > Box-plot
 
-A graph of the outliers in the `superficie` column is created:
+Se crea un gráfico de los valores atípicos de la columna `superficie`:
 
 
 ```R
@@ -283,7 +282,7 @@ boxplot_superficie <- boxplot(BBDD_Locales$superficie,
     
 
 
-**12 deviations** are detected:
+Se detectan **12 desviaciones**:
 
 
 ```R
@@ -307,7 +306,7 @@ numero_atipicos_superficie
 12
 
 
-The exact same process is then performed for the `trabajadores` column.
+A continuación, se realiza exactamente el mismo proceso para la columna `trabajadores` .
 
 
 ```R
@@ -324,7 +323,7 @@ boxplot_trabajadores <- boxplot(BBDD_Locales$trabajadores,
     
 
 
-**14 deviations** were detected:
+Se detectan **14 desviaciones**:
 
 
 ```R
@@ -350,7 +349,7 @@ numero_atipicos_trabajadores
 
 > Z-score
 
-Regarding the z-score method, first the `scale()` function is used in order to calculate the `superficie` deviations. Then, a **threshold of 2** is set to identify outliers.
+Respecto al método z-score, primeramente se usa la función `scale()` a fin de calcular las desviaciones de `superficie`. Luego, se establece un **umbral de 2** para identificar valores atípicos.
 
 
 ```R
@@ -375,7 +374,8 @@ numero_atipicos_superficie2
 11
 
 
-In view of this, it is observed that the difference in deviation between methods is **1**. This is because box-plot relies on quartiles and interquartile ranges (IQR) to identify outliers, which can lead to extreme values being considered outliers only if they are far away from the majority of the data. The z-score method, on the other hand, identifies a different number of outliers; it focuses on the distance between each data point and the mean.
+Ante esto, se observa que la diferencia de desviación entre métodos es de **1**. Esto se debe a que box-plot se basa en cuartiles y rangos intercuartiles (IQR) para identificar valores atípicos, lo que puede llevar a que los valores extremos se consideren atípicos solo si están muy lejos de la mayoría de los datos. El método z-score, por su parte, identifica un número diferente de valores atípicos; ya que se centra en la distancia entre cada punto de
+datos y la media.
 
 
 ```R
@@ -389,7 +389,8 @@ plot(z_scores_superficie, main = "Z-Scores de Superficie", xlab = "Índice", yla
     
 
 
-Exactly the same thing is done with the `trabajadores` column, and this time there was no difference:
+Con la columna `trabajadores` se hace exactamente lo mismo, y esta vez la diferencia ha
+sido nula:
 
 
 ```R
@@ -414,7 +415,8 @@ numeros_atipicos_trabajadores2
 14
 
 
-In this case, it may be that the data follow a relatively symmetrical distribution and the outliers are far from the mean.
+En este caso, puede ser que los datos sigan una distribución relativamente simétrica y los
+valores atípicos se encuentren lejos de la media.
 
 
 ```R
@@ -430,9 +432,9 @@ plot(z_scores_trabajadores, main = "Z-Scores de Trabajadores", xlab = "Índice",
 
 <br>
 
-## 3. Some Statistical Calculations...<a id="calculations"></a>
+## 3. Algunos Cálculos Estadísticos... <a id="calculations"></a>
 
-> Average area per business form
+> Superficie media por forma mercantil
 
 
 ```R
@@ -459,7 +461,7 @@ resultados_superficie
 
 
 
-> Minimum and maximum age by local situation
+> Antigüedad mínima y máxima por situación del local
 
 
 ```R
@@ -486,8 +488,3 @@ resultados_antiguedad
 </table>
 
 
-
-
-```R
-
-```

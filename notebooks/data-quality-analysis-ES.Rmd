@@ -1,9 +1,9 @@
 ---
 title: "Análisis de Calidad de Datos"
 output: html_notebook
-
-##### ***Emma Arenas Villaverde***
-
+author: "Emma Arenas Villaverde"
+---
+<br>
 ## 1. Tratamiento de los Datos<a id="treatment"></a>
 
 ### 1.1. Importar Librerías<a id="libraries"></a>
@@ -20,7 +20,7 @@ library(dplyr)
 
 
 ```R
-BBDD_Locales <- read_csv2("data/BBDD_Locales.csv") #  la función read_csv2 viene configurada por defecto para utilizar el punto y coma como delimitador
+BBDD_Locales <- read_csv2("../data/BBDD_Locales.csv") #  la función read_csv2 viene configurada por defecto para utilizar el punto y coma como delimitador
 ```
 
 <br>
@@ -59,13 +59,13 @@ str(BBDD_Locales) # para ver su estructura interna
      $ antiguedad  : num [1:766] 36.5 14.2 9 11.4 17.1 26.9 13.3 13.5 29.6 6.4 ...
      - attr(*, "spec")=
       .. cols(
-      ..   municipio = [31mcol_character()[39m,
-      ..   sector = [31mcol_character()[39m,
-      ..   situacion = [31mcol_character()[39m,
-      ..   forma = [31mcol_character()[39m,
-      ..   superficie = [32mcol_double()[39m,
-      ..   trabajadores = [32mcol_double()[39m,
-      ..   antiguedad = [32mcol_double()[39m
+      ..   municipio = [31mcol_character()[39m,
+      ..   sector = [31mcol_character()[39m,
+      ..   situacion = [31mcol_character()[39m,
+      ..   forma = [31mcol_character()[39m,
+      ..   superficie = [32mcol_double()[39m,
+      ..   trabajadores = [32mcol_double()[39m,
+      ..   antiguedad = [32mcol_double()[39m
       .. )
      - attr(*, "problems")=<externalptr> 
     
@@ -277,7 +277,7 @@ boxplot_superficie <- boxplot(BBDD_Locales$superficie,
 
 
     
-![png](output_39_0.png)
+![png](output_37_0.png)
     
 
 
@@ -318,7 +318,7 @@ boxplot_trabajadores <- boxplot(BBDD_Locales$trabajadores,
 
 
     
-![png](output_43_0.png)
+![png](output_41_0.png)
     
 
 
@@ -384,7 +384,7 @@ plot(z_scores_superficie, main = "Z-Scores de Superficie", xlab = "Índice", yla
 
 
     
-![png](output_50_0.png)
+![png](output_48_0.png)
     
 
 
@@ -425,7 +425,7 @@ plot(z_scores_trabajadores, main = "Z-Scores de Trabajadores", xlab = "Índice",
 
 
     
-![png](output_54_0.png)
+![png](output_52_0.png)
     
 
 
@@ -485,10 +485,3 @@ resultados_antiguedad
 	<tr><td>centro comercial</td><td>0.7</td><td>36.9</td></tr>
 </tbody>
 </table>
-
-
-
-
-```R
-
-```

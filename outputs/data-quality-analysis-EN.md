@@ -1,8 +1,7 @@
----
-title: "Data Quality Analysis"
-output: html_notebook
-author: "Emma Arenas Villaverde"
----
+# Data Quality Analysis
+
+##### ***Emma Arenas Villaverde***
+***
 
 <br>
 
