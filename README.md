@@ -1,6 +1,6 @@
 # Data Quality Analysis with R
 
-This repository hosts a collection of `Jupyter Notebooks` and `R Notebooks` in both **English** and **Spanish**, dedicated to performing **data quality analysis** using the `R programming language`. A detailed analysis structure is provided, enabling thorough inspection and enhanced understanding of an **example dataset**. It's important to note that the dataset used is for illustrative purposes only and its practical relevance is limited; it is included solely to demonstrate data analysis methodologies and techniques. Additionally, the repository contains `HTML`, `R Markdown` and `PDF` versions of the notebooks and the resulting **images of the graphics**.
+This repository hosts a collection of `Jupyter Notebooks` and `R Notebooks` in both **English** and **Spanish**, dedicated to performing **data quality analysis** using the `R programming language`. A detailed analysis structure is provided, enabling thorough inspection and enhanced understanding of an **example dataset**. It's important to note that the dataset used is for illustrative purposes only and its practical relevance is limited; it is included solely to demonstrate data analysis methodologies and techniques. Additionally, the repository contains `HTML`, `Markdown` and `PDF` versions of the notebooks and the resulting **images of the graphics**.
 
 ## Analysis Index
 
