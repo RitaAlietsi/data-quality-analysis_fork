@@ -1,2 +1,4 @@
 Visualization tools:
 Charts boxplot
+Tables
+Charts
